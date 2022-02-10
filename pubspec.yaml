@@ -1,7 +1,7 @@
 name: business_card_generator
 description: A new Flutter project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/null-pointer-0/FactoryPlus-BusinessCardGenerator
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
@@ -22,7 +22,9 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
-    - packages/business_card_generator/lib/assets/
+    - packages/business_card_generator/lib/assets/anothercars.png
+    - packages/business_card_generator/lib/assets/card.png
+    - packages/business_card_generator/lib/assets/thirdcard.png
 
   # To add assets to your package, add an assets section, like this:
   # assets:
