@@ -6,8 +6,4 @@ abstract class SuperStructure extends StatefulWidget{
 
   SuperStructure(this.image,this.globalKey);
 
-  @override
-  Widget build(BuildContext context) {
-    return build(context);
-  }
 }
