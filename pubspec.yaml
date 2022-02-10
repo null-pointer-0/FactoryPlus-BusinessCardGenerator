@@ -22,9 +22,9 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
-    - packages/business_card_generator/lib/assets/anothercars.png
-    - packages/business_card_generator/lib/assets/card.png
-    - packages/business_card_generator/lib/assets/thirdcard.png
+    - packages/business_card_generator/assets/anothercars.png
+    - packages/business_card_generator/assets/card.png
+    - packages/business_card_generator/assets/thirdcard.png
 
   # To add assets to your package, add an assets section, like this:
   # assets:
