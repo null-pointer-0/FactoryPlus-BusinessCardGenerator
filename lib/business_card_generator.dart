@@ -1,3 +1,3 @@
 library business_card_generator;
 
-export 'main_view.dart';
+export 'src/main_view.dart';

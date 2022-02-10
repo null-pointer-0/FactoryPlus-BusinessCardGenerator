@@ -2,30 +2,38 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
-import 'package:business_card_generator/Data/total_card.dart';
-import 'package:business_card_generator/structure/stack_type_general.dart';
+import 'package:business_card_generator/src/Data/data_store.dart';
+import 'package:business_card_generator/src/Data/total_card.dart';
+import 'package:business_card_generator/src/structure/stack_type_general.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class MyHomePage extends StatefulWidget {
+class BusinessCardGenerator extends StatefulWidget {
+  String name;
+  String contactNumber;
+
+  BusinessCardGenerator(this.name ,this.contactNumber);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _BusinessCardGeneratorState createState() => _BusinessCardGeneratorState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final TotalCards _totalCardsClass = TotalCards();
+class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
+  late final TotalCards _totalCardsClass;
   List<Widget> totalCards = List.empty(growable: true);
   Uint8List? imageInMemory = Uint8List.fromList(List.empty(growable: true));
   int curIndex = 0;
   final PageController _pageController = PageController(initialPage: 0 ,viewportFraction: 0.9);
-
+  late DataStore _dataStore;
   @override
   void initState() {
     super.initState();
+    _totalCardsClass = TotalCards(widget.name, widget.contactNumber);
     totalCards = _totalCardsClass.getTotalCards();
+    _dataStore = DataStore();
+    _dataStore.name = widget.name;
+    _dataStore.contactNumber = widget.contactNumber;
   }
 
   @override
