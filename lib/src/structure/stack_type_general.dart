@@ -3,12 +3,12 @@ import 'package:business_card_generator/src/structure/super_structure.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class StackTypeGeneral extends StatefulWidget{
+class StackTypeGeneral extends SuperStructure{
   final String image;
   final GlobalKey globalKey;
   String name, contactNumber;
 
-  StackTypeGeneral(this.image, this.globalKey, this.name, this.contactNumber);
+  StackTypeGeneral(this.image, this.globalKey, this.name, this.contactNumber):super(image,globalKey);
 
   @override
   _StackTypeGeneralState createState() => _StackTypeGeneralState();
