@@ -122,6 +122,7 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
       // setState(() {
       //   imageInMemory = pngBytes;
       // });
+      print("debug: sab changa si");
       return pngBytes;
     } catch (e) {
       print("debug: $e");
