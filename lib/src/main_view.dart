@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:business_card_generator/src/Data/data_store.dart';
 import 'package:business_card_generator/src/Data/total_card.dart';
 import 'package:business_card_generator/src/structure/stack_type_general.dart';
+import 'package:business_card_generator/src/structure/super_structure.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,24 @@ import 'package:flutter/rendering.dart';
 class BusinessCardGenerator extends StatefulWidget {
   String name;
   String contactNumber;
+  Widget? shareButton;
+  VoidCallback? onShareClick;
+  Color? shareButtonColor;
+  String? shareButtonText;
+  double? shareButtonFontSize;
+  VoidCallback? changeValues;
 
-  BusinessCardGenerator(this.name ,this.contactNumber);
+  BusinessCardGenerator(
+    this.name,
+    this.contactNumber, {
+    this.onShareClick,
+    this.shareButton,
+    this.shareButtonColor,
+    this.shareButtonFontSize,
+    this.shareButtonText,
+    this.changeValues,
+  });
+
   @override
   _BusinessCardGeneratorState createState() => _BusinessCardGeneratorState();
 }
@@ -24,16 +40,14 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
   List<Widget> totalCards = List.empty(growable: true);
   Uint8List? imageInMemory = Uint8List.fromList(List.empty(growable: true));
   int curIndex = 0;
-  final PageController _pageController = PageController(initialPage: 0 ,viewportFraction: 0.9);
-  late DataStore _dataStore;
+  final PageController _pageController =
+      PageController(initialPage: 0, viewportFraction: 0.9);
+
   @override
   void initState() {
     super.initState();
     _totalCardsClass = TotalCards(widget.name, widget.contactNumber);
     totalCards = _totalCardsClass.getTotalCards();
-    _dataStore = DataStore();
-    _dataStore.name = widget.name;
-    _dataStore.contactNumber = widget.contactNumber;
   }
 
   @override
@@ -50,8 +64,9 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height*0.27),
-                child:PageView.builder(
+              constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.27),
+              child: PageView.builder(
                 itemCount: totalCards.length,
                 controller: _pageController,
                 itemBuilder: (BuildContext context, int index) {
@@ -69,7 +84,9 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
             ),
             InkWell(
               onTap: () {
-                _capturePng((totalCards[curIndex] as StackTypeGeneral).globalKey).then((value) {});
+                _capturePng(
+                        (totalCards[curIndex] as SuperStructure).globalKey)
+                    .then((value) {});
               },
               child: Container(
                 color: Colors.blue,
@@ -92,7 +109,7 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
           .findRenderObject() as RenderRepaintBoundary?;
       ui.Image? image = await boundary?.toImage(pixelRatio: 3.0);
       ByteData? byteData =
-      await image?.toByteData(format: ui.ImageByteFormat.png);
+          await image?.toByteData(format: ui.ImageByteFormat.png);
       Uint8List? pngBytes = byteData?.buffer.asUint8List();
       final directory = (await getExternalStorageDirectory())?.path;
       File imgFile = File('$directory/flutter.png');
@@ -112,5 +129,4 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
       return null;
     }
   }
-
 }

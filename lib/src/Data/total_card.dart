@@ -1,5 +1,4 @@
 import 'package:business_card_generator/src/Data/Asset.dart';
-import 'package:business_card_generator/src/Data/data_store.dart';
 import 'package:business_card_generator/src/structure/stack_type_general.dart';
 import 'package:flutter/material.dart';
 

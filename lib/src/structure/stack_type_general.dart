@@ -1,12 +1,14 @@
 import 'package:business_card_generator/src/size_of_widget.dart';
+import 'package:business_card_generator/src/structure/super_structure.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class StackTypeGeneral extends StatefulWidget {
+class StackTypeGeneral extends StatefulWidget{
   final String image;
   final GlobalKey globalKey;
-  String name,contactNumber;
-  StackTypeGeneral(this.image, this.globalKey,this.name,this.contactNumber);
+  String name, contactNumber;
+
+  StackTypeGeneral(this.image, this.globalKey, this.name, this.contactNumber);
 
   @override
   _StackTypeGeneralState createState() => _StackTypeGeneralState();
@@ -47,9 +49,7 @@ class _StackTypeGeneralState extends State<StackTypeGeneral> {
           child: Text(
             widget.contactNumber,
             style: const TextStyle(
-                fontSize: 16.0,
-                color: Colors.red,
-                fontWeight: FontWeight.bold),
+                fontSize: 16.0, color: Colors.red, fontWeight: FontWeight.bold),
           ),
           top: MediaQuery.of(context).size.height * 0.27 * 0.85,
           right: 12.0,
