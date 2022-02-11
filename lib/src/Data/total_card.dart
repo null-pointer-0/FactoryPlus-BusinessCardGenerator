@@ -33,8 +33,10 @@ class TotalCards {
 
   List<Widget> fetchMoreData(int index) {
     List<Widget> _tempList = List.empty(growable: true);
+    int _finalIndex = index + 2 < _totalCards.length ? index + 2 : _totalCards
+        .length;
     if (index < _totalCards.length) {
-      for (int i = index; i < _totalCards.length; i++) {
+      for (int i = index; i < _finalIndex ; i++) {
         _tempList.add(_totalCards[i]);
       }
     }
