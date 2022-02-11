@@ -102,16 +102,14 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
           _capturePng((totalCards[curIndex] as SuperStructure).globalKey)
               .then((value) {});
         },
-        child: widget.shareButton == null
-            ? Container(
+        child: widget.shareButton ?? Container(
                 color: Colors.blue,
                 padding: const EdgeInsets.all(16.0),
                 child: const Text(
                   'Capture Image',
                   style: TextStyle(fontSize: 20.0),
                 ),
-              )
-            : widget.shareButton,
+              ),
       ),
     );
   }
@@ -127,8 +125,8 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
       final directory = (await getExternalStorageDirectory())?.path;
       File imgFile = File('$directory/flutter.png');
       imgFile.writeAsBytesSync(pngBytes!);
-      Share.share(
-        '$directory/flutter.png',
+      Share.shareFiles(
+        ['$directory/flutter.png',],
         sharePositionOrigin:
             boundary!.localToGlobal(Offset.zero) & boundary.size,
       );
