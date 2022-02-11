@@ -36,7 +36,6 @@ class BusinessCardGenerator extends StatefulWidget {
 class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
   late final TotalCards _totalCardsClass;
   List<Widget> totalCards = List.empty(growable: true);
-  Uint8List? imageInMemory = Uint8List.fromList(List.empty(growable: true));
   int curIndex = 0;
   final PageController _pageController =
       PageController(initialPage: 0, viewportFraction: 0.9);
@@ -121,8 +120,10 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
       ui.Image? image = await boundary?.toImage(pixelRatio: 3.0);
       ByteData? byteData =
           await image?.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List? pngBytes = byteData?.buffer.asUint8List();
       final directory = (await getExternalStorageDirectory())?.path;
       File imgFile = File('$directory/flutter.png');
+      imgFile.writeAsBytesSync(pngBytes!);
       Share.shareFiles(
         ['$directory/flutter.png',],
         sharePositionOrigin:
