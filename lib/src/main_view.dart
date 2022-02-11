@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -102,11 +101,11 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
               .then((value) {});
         },
         child: widget.shareButton ?? Container(
-                color: Colors.blue,
+                color: widget.shareButtonColor ?? Colors.blue,
                 padding: const EdgeInsets.all(16.0),
-                child: const Text(
-                  'Capture Image',
-                  style: TextStyle(fontSize: 20.0),
+                child: Text(
+                  widget.shareButtonText ?? 'Capture & Share',
+                  style: TextStyle(fontSize: widget.shareButtonFontSize ?? 20.0),
                 ),
               ),
       ),
