@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:business_card_generator/src/Data/Asset.dart';
 import 'package:business_card_generator/src/structure/stack_type_general.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +36,7 @@ class TotalCards {
 
   List<Widget> fetchMoreData(int index) {
     List<Widget> _tempList = List.empty(growable: true);
-    int _finalIndex = index + 2 < _totalCards.length ? index + 2 : _totalCards
-        .length;
+    int _finalIndex = min(index + 2, _totalCards.length);
     if (index < _totalCards.length) {
       for (int i = index; i < _finalIndex ; i++) {
         _tempList.add(_totalCards[i]);
@@ -47,7 +48,8 @@ class TotalCards {
   List<Widget> getInitialData() {
     _populateList();
     List<Widget> _tempList = List.empty(growable: true);
-    for (int i = 0; i < 3; i++) {
+    int _finalIndex = min(5, _totalCards.length);
+    for (int i = 0; i < _finalIndex; i++) {
       _tempList.add(_totalCards[i]);
     }
     return _tempList;

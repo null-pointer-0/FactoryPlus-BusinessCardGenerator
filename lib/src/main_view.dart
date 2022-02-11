@@ -7,13 +7,13 @@ import 'package:business_card_generator/src/structure/super_structure.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/rendering.dart';
 
 class BusinessCardGenerator extends StatefulWidget {
   String name;
   String contactNumber;
   Widget? shareButton;
-  VoidCallback? onShareClick;
   Color? shareButtonColor;
   String? shareButtonText;
   double? shareButtonFontSize;
@@ -22,7 +22,6 @@ class BusinessCardGenerator extends StatefulWidget {
   BusinessCardGenerator(
     this.name,
     this.contactNumber, {
-    this.onShareClick,
     this.shareButton,
     this.shareButtonColor,
     this.shareButtonFontSize,
@@ -62,48 +61,56 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.27),
-              child: PageView.builder(
-                itemCount: totalCards.length,
-                controller: _pageController,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: totalCards[index],
-                  );
-                },
-                onPageChanged: (index) {
-                  setState(() {
-                    curIndex = index;
-                    if(index == totalCards.length){
-                      for (var value in _totalCardsClass.fetchMoreData(totalCards.length)) {
-                        totalCards.add(value);
-                      }
-                    }
-                  });
-                },
-              ),
+            const SizedBox(
+              height: 100,
             ),
-            InkWell(
-              onTap: () {
-                _capturePng(
-                        (totalCards[curIndex] as SuperStructure).globalKey)
-                    .then((value) {});
-              },
-              child: Container(
-                color: Colors.blue,
-                padding: const EdgeInsets.all(16.0),
-                child: const Text(
-                  'Capture Image',
-                  style: TextStyle(fontSize: 20.0),
-                ),
-              ),
+            _cardsView(),
+            _shareButton(),
+            const SizedBox(
+              height: 50,
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _cardsView() {
+    return Container(
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.27),
+      child: PageView.builder(
+        itemCount: totalCards.length,
+        controller: _pageController,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: totalCards[index],
+          );
+        },
+        onPageChanged: (index) {
+          _onPageChange(index);
+        },
+      ),
+    );
+  }
+
+  Widget _shareButton() {
+    return InkWell(
+      onTap: () {
+        _capturePng((totalCards[curIndex] as SuperStructure).globalKey)
+            .then((value) {});
+      },
+      child: widget.shareButton != null
+          ? Container(
+              color: Colors.blue,
+              padding: const EdgeInsets.all(16.0),
+              child: const Text(
+                'Capture Image',
+                style: TextStyle(fontSize: 20.0),
+              ),
+            )
+          : widget.shareButton,
     );
   }
 
@@ -118,23 +125,28 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
       final directory = (await getExternalStorageDirectory())?.path;
       File imgFile = File('$directory/flutter.png');
       imgFile.writeAsBytesSync(pngBytes!);
-      List<String> paths = List.empty(growable: true);
-      paths.add('$directory/flutter.png');
-      // Share.shareFiles(paths,
-      //     subject: 'Share ScreenShot',
-      //     sharePositionOrigin:
-      //     boundary!.localToGlobal(Offset.zero) & boundary.size);
-      // setState(() {
-      //   imageInMemory = pngBytes;
-      // });
-      print("debug: sab changa si");
+      Share.share(
+        '$directory/flutter.png',
+        sharePositionOrigin:
+            boundary!.localToGlobal(Offset.zero) & boundary.size,
+      );
+      setState(() {
+        imageInMemory = pngBytes;
+      });
       return pngBytes;
     } catch (e) {
-      print("debug: $e");
       return null;
     }
   }
 
-  _pageControlListener(){
+  _onPageChange(int index) {
+    setState(() {
+      curIndex = index;
+      if (index == totalCards.length - 2) {
+        for (var value in _totalCardsClass.fetchMoreData(totalCards.length)) {
+          totalCards.add(value);
+        }
+      }
+    });
   }
 }
