@@ -102,7 +102,7 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
           _capturePng((totalCards[curIndex] as SuperStructure).globalKey)
               .then((value) {});
         },
-        child: widget.shareButton != null
+        child: widget.shareButton == null
             ? Container(
                 color: Colors.blue,
                 padding: const EdgeInsets.all(16.0),
