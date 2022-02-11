@@ -27,6 +27,7 @@ class TotalCards {
   }
 
   List<Widget> getTotalCards() {
+    _totalCards.clear();
     _populateList();
     return _totalCards;
   }
@@ -44,6 +45,8 @@ class TotalCards {
   }
 
   List<Widget> getInitialData() {
+    _totalCards.clear();
+    _populateList();
     List<Widget> _tempList = List.empty(growable: true);
     for (int i = 0; i < 3; i++) {
       _tempList.add(_totalCards[i]);
