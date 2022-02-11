@@ -46,7 +46,7 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
   void initState() {
     super.initState();
     _totalCardsClass = TotalCards(widget.name, widget.contactNumber);
-    totalCards = _totalCardsClass.getTotalCards();
+    totalCards = _totalCardsClass.getInitialData();
   }
 
   @override
@@ -69,6 +69,11 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
                 itemCount: totalCards.length,
                 controller: _pageController,
                 itemBuilder: (BuildContext context, int index) {
+                  if(index == totalCards.length-2){
+                    for (var value in _totalCardsClass.fetchMoreData(totalCards.length)) {
+                      totalCards.add(value);
+                    }
+                  }
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: totalCards[index],
