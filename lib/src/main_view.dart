@@ -69,11 +69,6 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
                 itemCount: totalCards.length,
                 controller: _pageController,
                 itemBuilder: (BuildContext context, int index) {
-                  if(index == totalCards.length-2){
-                    for (var value in _totalCardsClass.fetchMoreData(totalCards.length)) {
-                      totalCards.add(value);
-                    }
-                  }
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: totalCards[index],
@@ -82,6 +77,11 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
                 onPageChanged: (index) {
                   setState(() {
                     curIndex = index;
+                    if(index == totalCards.length-2){
+                      for (var value in _totalCardsClass.fetchMoreData(totalCards.length)) {
+                        totalCards.add(value);
+                      }
+                    }
                   });
                 },
               ),
@@ -133,5 +133,8 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
       print("debug: $e");
       return null;
     }
+  }
+
+  _pageControlListener(){
   }
 }
