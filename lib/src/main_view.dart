@@ -114,28 +114,22 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
     );
   }
 
-  Future<Uint8List?> _capturePng(GlobalKey _globalKey) async {
+  _capturePng(GlobalKey _globalKey) async {
     try {
       RenderRepaintBoundary? boundary = _globalKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary?;
       ui.Image? image = await boundary?.toImage(pixelRatio: 3.0);
       ByteData? byteData =
           await image?.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List? pngBytes = byteData?.buffer.asUint8List();
       final directory = (await getExternalStorageDirectory())?.path;
       File imgFile = File('$directory/flutter.png');
-      imgFile.writeAsBytesSync(pngBytes!);
       Share.shareFiles(
         ['$directory/flutter.png',],
         sharePositionOrigin:
             boundary!.localToGlobal(Offset.zero) & boundary.size,
       );
-      setState(() {
-        imageInMemory = pngBytes;
-      });
-      return pngBytes;
     } catch (e) {
-      return null;
+      print("debug: $e");
     }
   }
 
