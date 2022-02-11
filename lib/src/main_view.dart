@@ -96,21 +96,23 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
   }
 
   Widget _shareButton() {
-    return InkWell(
-      onTap: () {
-        _capturePng((totalCards[curIndex] as SuperStructure).globalKey)
-            .then((value) {});
-      },
-      child: widget.shareButton != null
-          ? Container(
-              color: Colors.blue,
-              padding: const EdgeInsets.all(16.0),
-              child: const Text(
-                'Capture Image',
-                style: TextStyle(fontSize: 20.0),
-              ),
-            )
-          : widget.shareButton,
+    return Flexible(
+      child: InkWell(
+        onTap: () {
+          _capturePng((totalCards[curIndex] as SuperStructure).globalKey)
+              .then((value) {});
+        },
+        child: widget.shareButton != null
+            ? Container(
+                color: Colors.blue,
+                padding: const EdgeInsets.all(16.0),
+                child: const Text(
+                  'Capture Image',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              )
+            : widget.shareButton,
+      ),
     );
   }
 
