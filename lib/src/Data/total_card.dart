@@ -10,6 +10,7 @@ class TotalCards {
   List<Widget> _totalCards = List.empty(growable: true);
 
   void _populateList() {
+    _totalCards.clear();
     _totalCards = [
       StackTypeGeneral(
           Assets.card_background_one, GlobalKey(), name, contactNumber),
@@ -27,7 +28,6 @@ class TotalCards {
   }
 
   List<Widget> getTotalCards() {
-    _totalCards.clear();
     _populateList();
     return _totalCards;
   }
@@ -45,7 +45,6 @@ class TotalCards {
   }
 
   List<Widget> getInitialData() {
-    _totalCards.clear();
     _populateList();
     List<Widget> _tempList = List.empty(growable: true);
     for (int i = 0; i < 3; i++) {

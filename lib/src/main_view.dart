@@ -77,7 +77,7 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
                 onPageChanged: (index) {
                   setState(() {
                     curIndex = index;
-                    if(index == totalCards.length-2){
+                    if(index == totalCards.length){
                       for (var value in _totalCardsClass.fetchMoreData(totalCards.length)) {
                         totalCards.add(value);
                       }
