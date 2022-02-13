@@ -9,7 +9,7 @@ import 'package:flutter/rendering.dart';
 
 import '../size_of_widget.dart';
 
-class CardFullView extends StatefulWidget {
+class CardFullView extends StatefulWidget{
   final String image;
   final GlobalKey globalKey;
   String name, contactNumber;
@@ -22,8 +22,11 @@ class CardFullView extends StatefulWidget {
 }
 
 class _CardFullViewState extends State<CardFullView> {
+
   ValueNotifier<double> imageWidth = ValueNotifier(0.0);
   Uint8List? imageInMemory = Uint8List.fromList(List.empty(growable: true));
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +62,7 @@ class _CardFullViewState extends State<CardFullView> {
                   padding: const EdgeInsets.symmetric(vertical: 90.0,horizontal: 10.0),
                   child: Image.asset(
                     widget.image,
+                    package: 'business_card_generator',
                     height: MediaQuery.of(context).size.height * 0.56,
                     fit: BoxFit.fitHeight,
                   ),
@@ -140,6 +144,7 @@ class _CardFullViewState extends State<CardFullView> {
     }
   }
 }
+
 
 
 
