@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:business_card_generator/src/Data/total_card.dart';
+import 'package:business_card_generator/src/structure/card_full_view.dart';
 import 'package:business_card_generator/src/structure/super_structure.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
@@ -83,7 +84,7 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: totalCards[index],
+                child: totalCards[index],
           );
         },
         onPageChanged: (index) {

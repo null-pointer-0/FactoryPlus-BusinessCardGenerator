@@ -1,4 +1,5 @@
 import 'package:business_card_generator/src/size_of_widget.dart';
+import 'package:business_card_generator/src/structure/card_full_view.dart';
 import 'package:business_card_generator/src/structure/super_structure.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,22 +22,27 @@ class _StackTypeGeneralState extends State<StackTypeGeneral> {
   Widget build(BuildContext context) {
     return RepaintBoundary(
       key: widget.globalKey,
-      child: Stack(
-        children: [
-          SizeOffsetWrapper(
-            onSizeChange: (Size size) {
-              imageWidth.value = size.width;
-            },
-            child: Image.asset(
-              widget.image,
-              package: 'business_card_generator',
-              height: MediaQuery.of(context).size.height * 0.27,
-              fit: BoxFit.fitHeight,
+      child: InkWell(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>CardFullView(widget.image, widget.globalKey,widget.name,widget.contactNumber)));
+        },
+        child: Stack(
+          children: [
+            SizeOffsetWrapper(
+              onSizeChange: (Size size) {
+                imageWidth.value = size.width;
+              },
+              child: Image.asset(
+                widget.image,
+                package: 'business_card_generator',
+                height: MediaQuery.of(context).size.height * 0.27,
+                fit: BoxFit.fitHeight,
+              ),
             ),
-          ),
-          _contactWidget(),
-          _nameAndDetailWidget(),
-        ],
+            _contactWidget(),
+            _nameAndDetailWidget(),
+          ],
+        ),
       ),
     );
   }
