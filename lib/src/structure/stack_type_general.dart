@@ -23,40 +23,75 @@ class _StackTypeGeneralState extends State<StackTypeGeneral> {
   Widget build(BuildContext context) {
     return RepaintBoundary(
       key: widget.globalKey,
-        child: Stack(
-          children: [
-            SizeOffsetWrapper(
-              onSizeChange: (Size size) {
-                imageWidth.value = size.width;
-              },
+      child:  Stack(
+        children: [
+          SizeOffsetWrapper(
+            onSizeChange: (Size size) {
+              imageWidth.value = size.width;
+            },
               child: Image.asset(
                 widget.image,
-                package: 'business_card_generator',
                 height: MediaQuery.of(context).size.height * 0.27,
                 fit: BoxFit.fitHeight,
               ),
-            ),
-            _contactWidget(),
-            _nameAndDetailWidget(),
-          ],
-        ),
+          ),
+          _details(),
+          _nameAndDetailWidget(),
+          _emailWidget(),
+
+        ],
+      ),
     );
   }
-
-  Widget _contactWidget() {
+  Widget _rowTileContainingInfo(widgetType,iconType){
+    return  Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          iconType,
+          size: 15,
+        ),
+        const SizedBox(width: 8,),
+        Container(
+          child: widgetType,
+        )
+      ],
+    );
+  }
+  Widget _details() {
     return ValueListenableBuilder(
       valueListenable: imageWidth,
       builder: (context, value, child) {
         return Positioned(
-          child: Text(
-            widget.contactNumber,
-            style: const TextStyle(
-                fontSize: 16.0, color: Colors.red, fontWeight: FontWeight.bold),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _rowTileContainingInfo(_addressWidget(),Icons.email),
+              _rowTileContainingInfo(_contactWidget(),Icons.add),
+            ],
           ),
-          top: MediaQuery.of(context).size.height * 0.27 * 0.85,
-          right: 12.0,
+          top: MediaQuery.of(context).size.height * 0.21 * 0.85,
         );
       },
+    );
+  }
+  Widget _contactWidget() {
+    return const Text(
+      '7982611621',
+      style: TextStyle(
+          fontSize: 10.0,
+          color: Colors.red,
+          fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget _addressWidget() {
+    return const Text(
+      'G01 EPI colony ,Near Gate number 2',
+      style: TextStyle(
+          fontSize: 10.0,
+          color: Colors.red,
+          fontWeight: FontWeight.bold),
     );
   }
 
@@ -67,13 +102,13 @@ class _StackTypeGeneralState extends State<StackTypeGeneral> {
         return Positioned(
           top: MediaQuery.of(context).size.height * 0.27 * 0.45,
           width: imageWidth.value,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
-              widget.name,
+              'Mark Enterprises',
               maxLines: 2,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 24.0,
                   color: Colors.red,
                   fontWeight: FontWeight.bold),
@@ -83,4 +118,29 @@ class _StackTypeGeneralState extends State<StackTypeGeneral> {
       },
     );
   }
+  Widget _emailWidget() {
+    return ValueListenableBuilder(
+      valueListenable: imageWidth,
+      builder: (context, value, child) {
+        return Positioned(
+          top: MediaQuery.of(context).size.height * 0.29 * 0.85,
+          width: imageWidth.value,
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              'prashantsingh@gmail.com',
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 10.0,
+                color: Colors.red,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
+
