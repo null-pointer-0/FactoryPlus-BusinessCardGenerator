@@ -2,32 +2,34 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:business_card_generator/src/Data/total_card.dart';
-import 'package:business_card_generator/src/structure/card_full_view.dart';
 import 'package:business_card_generator/src/structure/super_structure.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/rendering.dart';
 
 class BusinessCardGenerator extends StatefulWidget {
-  String name;
-  String contactNumber;
-  Widget? shareButton;
-  Color? shareButtonColor;
-  String? shareButtonText;
-  double? shareButtonFontSize;
-  VoidCallback? changeValues;
+  final String address;
+  final String email;
+   final String name;
+   final String contactNumber;
+   final Widget? shareButton;
+   final Color? shareButtonColor;
+   final String? shareButtonText;
+   final double? shareButtonFontSize;
+   final VoidCallback? changeValues;
 
-  BusinessCardGenerator(
+  const BusinessCardGenerator(
+    this.address,
+    this.email,
     this.name,
-    this.contactNumber, {
+    this.contactNumber, {Key? key,
     this.shareButton,
     this.shareButtonColor,
     this.shareButtonFontSize,
     this.shareButtonText,
     this.changeValues,
-  });
+  }) : super(key: key);
 
   @override
   _BusinessCardGeneratorState createState() => _BusinessCardGeneratorState();
@@ -43,7 +45,7 @@ class _BusinessCardGeneratorState extends State<BusinessCardGenerator> {
   @override
   void initState() {
     super.initState();
-    _totalCardsClass = TotalCards(widget.name, widget.contactNumber);
+    _totalCardsClass = TotalCards(widget.name, widget.contactNumber,widget.email,widget.address);
     totalCards = _totalCardsClass.getInitialData();
   }
 

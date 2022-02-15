@@ -5,9 +5,9 @@ import 'package:business_card_generator/src/structure/stack_type_general.dart';
 import 'package:flutter/material.dart';
 
 class TotalCards {
-  String name, contactNumber;
+  String name, contactNumber,email,address;
 
-  TotalCards(this.name, this.contactNumber);
+  TotalCards(this.name, this.contactNumber,this.address,this.email);
 
   List<Widget> _totalCards = List.empty(growable: true);
 
@@ -15,17 +15,17 @@ class TotalCards {
     _totalCards.clear();
     _totalCards = [
       StackTypeGeneral(
-          Assets.card_background_one, GlobalKey(), name, contactNumber),
+          Assets.card_background_one, GlobalKey(), name, contactNumber,address,email),
       StackTypeGeneral(
-          Assets.card_background_two, GlobalKey(), name, contactNumber),
+          Assets.card_background_two, GlobalKey(), name, contactNumber,address,email),
       StackTypeGeneral(
-          Assets.card_background_third, GlobalKey(), name, contactNumber),
+          Assets.card_background_third, GlobalKey(), name, contactNumber,address,email),
       StackTypeGeneral(
-          Assets.card_background_one, GlobalKey(), name, contactNumber),
+          Assets.card_background_one, GlobalKey(), name, contactNumber,address,email),
       StackTypeGeneral(
-          Assets.card_background_third, GlobalKey(), name, contactNumber),
+          Assets.card_background_third, GlobalKey(), name, contactNumber,address,email),
       StackTypeGeneral(
-          Assets.card_background_two, GlobalKey(), name, contactNumber),
+          Assets.card_background_two, GlobalKey(), name, contactNumber,address,email),
     ];
   }
 

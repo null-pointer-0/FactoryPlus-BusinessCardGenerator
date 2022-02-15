@@ -1,15 +1,16 @@
 import 'package:business_card_generator/src/size_of_widget.dart';
-import 'package:business_card_generator/src/structure/card_full_view.dart';
 import 'package:business_card_generator/src/structure/super_structure.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StackTypeGeneral extends SuperStructure{
+  final String email;
+  final String address;
   final String image;
   final GlobalKey globalKey;
   String name, contactNumber;
 
-  StackTypeGeneral(this.image, this.globalKey, this.name, this.contactNumber):super(image,globalKey);
+  StackTypeGeneral(this.image, this.globalKey, this.name, this.contactNumber,this.email,this.address):super(image,globalKey);
 
   @override
   _StackTypeGeneralState createState() => _StackTypeGeneralState();
@@ -22,10 +23,6 @@ class _StackTypeGeneralState extends State<StackTypeGeneral> {
   Widget build(BuildContext context) {
     return RepaintBoundary(
       key: widget.globalKey,
-      child: InkWell(
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>CardFullView(widget.image, widget.globalKey,widget.name,widget.contactNumber)));
-        },
         child: Stack(
           children: [
             SizeOffsetWrapper(
@@ -43,7 +40,6 @@ class _StackTypeGeneralState extends State<StackTypeGeneral> {
             _nameAndDetailWidget(),
           ],
         ),
-      ),
     );
   }
 
