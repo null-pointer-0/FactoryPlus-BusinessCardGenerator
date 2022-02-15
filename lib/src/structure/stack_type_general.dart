@@ -29,11 +29,12 @@ class _StackTypeGeneralState extends State<StackTypeGeneral> {
             onSizeChange: (Size size) {
               imageWidth.value = size.width;
             },
-              child: Image.asset(
-                widget.image,
-                height: MediaQuery.of(context).size.height * 0.27,
-                fit: BoxFit.fitHeight,
-              ),
+            child: Image.asset(
+              widget.image,
+              package: 'business_card_generator',
+              height: MediaQuery.of(context).size.height * 0.27,
+              fit: BoxFit.fitHeight,
+            ),
           ),
           _details(),
           _nameAndDetailWidget(),
@@ -66,8 +67,8 @@ class _StackTypeGeneralState extends State<StackTypeGeneral> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _rowTileContainingInfo(_addressWidget(),Icons.email),
-              _rowTileContainingInfo(_contactWidget(),Icons.add),
+              _rowTileContainingInfo(_addressWidget(),Icons.home),
+              _rowTileContainingInfo(_contactWidget(),Icons.wifi_calling_outlined),
             ],
           ),
           top: MediaQuery.of(context).size.height * 0.21 * 0.85,
